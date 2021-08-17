@@ -37,7 +37,7 @@ Vagrant.configure("2") do |config|
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
   # your network.
-  # config.vm.network "public_network"
+  # config.vm.network "private_network", type: "dhcp"
 
   # Share an additional folder to the guest VM. The first argument is
   # the path on the host to the actual folder. The second argument is
@@ -54,7 +54,8 @@ Vagrant.configure("2") do |config|
   #     vb.gui = true
   #
   #   # Customize the amount of memory on the VM:
-       vb.memory = "1024"
+       vb.memory = "2048"
+	   vb.cpus = "2"
   end
   #
   # View the documentation for the provider you are using for more
@@ -69,17 +70,20 @@ Vagrant.configure("2") do |config|
   config.vm.define "kubc" do |kubc|
     kubc.vm.box="hashicorp/bionic64"
 	kubc.vm.hostname="kubc"
+	kubc.vm.network "private_network", ip: "192.168.205.10", mac: "080027000001"
   end
   
   # this is the worker 1 VM
   config.vm.define "kubw1" do |kubw1|
     kubw1.vm.box="hashicorp/bionic64"
 	kubw1.vm.hostname="kubw1"
+	kubw1.vm.network "private_network", ip: "192.168.205.11", mac: "080027000002"
   end
 
 # this is the worker 2 VM
   config.vm.define "kubw2" do |kubw2|
     kubw2.vm.box="hashicorp/bionic64"
 	kubw2.vm.hostname="kubw2"
+	kubw2.vm.network "private_network", ip: "192.168.205.12", mac: "080027000003"
   end
 end
