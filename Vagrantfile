@@ -49,14 +49,7 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #     vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-       vb.memory = "2048"
-	   vb.cpus = "2"
-  end
+  
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -67,23 +60,24 @@ Vagrant.configure("2") do |config|
   config.vm.provision :shell, path: "bootstrap.sh"
   
   # this is the controller VM
-  config.vm.define "kubc" do |kubc|
-    kubc.vm.box="hashicorp/bionic64"
-	kubc.vm.hostname="kubc"
-	kubc.vm.network "private_network", ip: "192.168.205.10", mac: "080027000001"
+  config.vm.define "kubemaster" do |kubemaster|
+    kubemaster.vm.box="hashicorp/bionic64"
+	kubemaster.vm.hostname="kubemaster"
+	kubemaster.vm.network "private_network", ip: "192.168.205.10", mac: "080027000001"
+	kubemaster.vm.provider "virtualbox" do |vbm|
+		vbm.memory = "8192"
+		vbm.cpus = "3"
+	end
   end
   
   # this is the worker 1 VM
-  config.vm.define "kubw1" do |kubw1|
-    kubw1.vm.box="hashicorp/bionic64"
-	kubw1.vm.hostname="kubw1"
-	kubw1.vm.network "private_network", ip: "192.168.205.11", mac: "080027000002"
-  end
-
-# this is the worker 2 VM
-  config.vm.define "kubw2" do |kubw2|
-    kubw2.vm.box="hashicorp/bionic64"
-	kubw2.vm.hostname="kubw2"
-	kubw2.vm.network "private_network", ip: "192.168.205.12", mac: "080027000003"
+  config.vm.define "kubeworker" do |kubeworker|
+    kubeworker.vm.box="hashicorp/bionic64"
+	kubeworker.vm.hostname="kubeworker"
+	kubeworker.vm.network "private_network", ip: "192.168.205.11", mac: "080027000002"
+	kubeworker.vm.provider "virtualbox" do |vbw|
+		vbw.memory = "4096"
+		vbw.cpus = "1"
+	end
   end
 end
