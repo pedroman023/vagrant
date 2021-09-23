@@ -13,10 +13,16 @@ It uptdates the packages and operating system and also installs kubernetes
 TBD
 
 # Cheatsheet commands
-vagrant up
+vagrant init
 
-vagrant global-status
+vagrand up
 
-vagrant halt 
+vagrant halt [/regex/]
 
-vagrant destroy
+vagrant destroy [/regex/]
+
+vagrant status
+
+vagrant provision
+
+vagrant ssh
