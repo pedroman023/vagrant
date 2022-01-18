@@ -10,7 +10,7 @@ This is a script that runs whenever the VMs start
 It uptdates the packages and operating system and also installs kubernetes
 
 # Installation
-TBD
+Run vagrant up
 
 # Cheatsheet commands
 vagrant init
