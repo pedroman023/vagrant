@@ -70,21 +70,10 @@ Vagrant.configure("2") do |config|
       
       kubemaster.vm.provision "file", source: "files/calico.yaml", destination: "~/calico.yaml"
       
-      kubemaster.vm.provision :shell, path: "bootstrap_master.sh"
-      
+      kubemaster.vm.provision :shell, path: "../prep_nodes.sh"
+      kubemaster.vm.provision :shell, path: "kubeadm_master.sh"
       #kubemaster.vm.provision :shell, path: "kubeadm_start.sh"
     end
     
-    # this is the worker 1 VM
-    config.vm.define "kubeworker" do |kubeworker|
-      kubeworker.vm.box="hashicorp/bionic64"
-      kubeworker.vm.hostname="kubeworker"
-      kubeworker.vm.network "public_network", bridge: "Intel(R) Ethernet Connection (2) I219-V", ip: "192.168.1.202"
-      kubeworker.vm.provider "virtualbox" do |vbw|
-          vbw.memory = "4096"
-          vbw.cpus = "1"
-      end
-      kubeworker.vm.provision :shell, path: "bootstrap_worker.sh"
-    end
   end
   

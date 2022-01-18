@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-
-echo "Copying calico config file to root dir..."
+echo "kubeadm: Starting CP's config..."
+echo "kubeadm: Copying calico config file to root dir..."
 mkdir /root/kubeadm
 sudo cp files/calico.yaml /root/kubeadm
 
